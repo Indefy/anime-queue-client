@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 function AnimeDetails() {
@@ -23,7 +23,7 @@ function AnimeDetails() {
 
 	return (
 		<div className="min-h-screen bg-gray-100 flex flex-col items-center">
-			<header className="w-full bg-gray-900 text-white p-4">
+			{/* <header className="w-full bg-gray-900 text-white p-4">
 				<div className="container mx-auto flex justify-between items-center">
 					<div className="text-2xl font-bold">AniTracker</div>
 					<nav>
@@ -51,7 +51,7 @@ function AnimeDetails() {
 						</ul>
 					</nav>
 				</div>
-			</header>
+			</header> */}
 			<main className="container mx-auto mt-12">
 				<div className="bg-white p-8 rounded-lg shadow">
 					<img

@@ -1,54 +1,52 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function AnimeNavbar({ isAuthenticated }) {
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+		localStorage.removeItem("token");
+		navigate("/");
+		window.location.reload();
+	};
+
 	return (
-		<header className="w-full bg-gray-900 text-white p-4 fixed top-0">
-			<div className="container mx-auto flex justify-between items-center">
-				<div className="text-2xl font-bold">AniTracker</div>
-				<nav>
-					<ul className="flex space-x-4">
-						<li>
-							<Link to="/" className="hover:underline">
-								Home
-							</Link>
-						</li>
-						<li>
-							<Link to="/anime" className="hover:underline">
-								Anime List
-							</Link>
-						</li>
-						{isAuthenticated ? (
-							<>
-								<li>
-									<Link to="/profile" className="hover:underline">
-										Profile
-									</Link>
-								</li>
-								<li>
-									<Link to="/logout" className="hover:underline">
-										Logout
-									</Link>
-								</li>
-							</>
-						) : (
-							<>
-								<li>
-									<Link to="/login" className="hover:underline">
-										Login
-									</Link>
-								</li>
-								<li>
-									<Link to="/register" className="hover:underline">
-										Register
-									</Link>
-								</li>
-							</>
-						)}
-					</ul>
-				</nav>
+		<nav className="bg-blue-800 text-white px-6 py-4">
+			<div className="flex justify-between items-center">
+				<div className="text-xl font-bold">AniTracker</div>
+				<ul className="flex space-x-4">
+					<li>
+						<Link to="/" className="hover:text-gray-300">
+							Home
+						</Link>
+					</li>
+					<li>
+						<Link to="/anime" className="hover:text-gray-300">
+							Anime List
+						</Link>
+					</li>
+					{isAuthenticated && (
+						<>
+							<li>
+								<Link to="/profile" className="hover:text-gray-300">
+									Profile
+								</Link>
+							</li>
+							<li>
+								<Link to="/add-anime" className="hover:text-gray-300">
+									Add Anime
+								</Link>
+							</li>
+							<li>
+								<button onClick={handleLogout} className="hover:text-gray-300">
+									Logout
+								</button>
+							</li>
+						</>
+					)}
+				</ul>
 			</div>
-		</header>
+		</nav>
 	);
 }
 

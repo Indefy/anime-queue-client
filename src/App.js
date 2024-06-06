@@ -6,7 +6,8 @@ import Home from "./components/Home";
 import AnimeList from "./components/AnimeList";
 import AnimeDetails from "./components/AnimeDetails";
 import UserProfile from "./components/UserProfile";
-import AnimeNavbar from "./components/AnimeNavbar"; // Updated import
+import AnimeNavbar from "./components/AnimeNavbar";
+import AddAnime from "./components/AddAnime";
 import axios from "axios";
 
 function App() {
@@ -23,10 +24,8 @@ function App() {
 	return (
 		<Router>
 			<div className="App">
-				<AnimeNavbar isAuthenticated={isAuthenticated} /> {/* Updated usage */}
+				<AnimeNavbar isAuthenticated={isAuthenticated} />
 				<div className="pt-20">
-					{" "}
-					{/* Add padding-top to prevent content overlap */}
 					<Routes>
 						<Route
 							path="/"
@@ -40,6 +39,7 @@ function App() {
 						<Route path="/anime" element={<AnimeList />} />
 						<Route path="/anime/:id" element={<AnimeDetails />} />
 						<Route path="/profile" element={<UserProfile />} />
+						<Route path="/add-anime" element={<AddAnime />} />
 					</Routes>
 				</div>
 			</div>

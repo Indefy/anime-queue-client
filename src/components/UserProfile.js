@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../axiosSetup";
 
 function UserProfile() {
 	const [favorites, setFavorites] = useState([]);
+	const [error, setError] = useState("");
 
 	useEffect(() => {
 		const fetchFavorites = async () => {
 			try {
-				const response = await axios.get(
-					"http://localhost:3002/users/favorites"
-				);
+				const response = await api.get("/users/favorites");
 				setFavorites(response.data);
 			} catch (error) {
 				console.error("Error fetching favorites:", error);
+				setError(error.response ? error.response.data.message : error.message);
 			}
 		};
 
@@ -21,10 +21,11 @@ function UserProfile() {
 
 	const handleRemoveFavorite = async (animeId) => {
 		try {
-			await axios.delete(`http://localhost:3002/users/favorites/${animeId}`);
+			await api.delete(`/users/favorites/${animeId}`);
 			setFavorites(favorites.filter((fav) => fav._id !== animeId));
 		} catch (error) {
 			console.error("Error removing favorite:", error);
+			setError(error.response ? error.response.data.message : error.message);
 		}
 	};
 
@@ -33,6 +34,7 @@ function UserProfile() {
 			<main className="container mx-auto mt-12">
 				<div className="bg-white p-8 rounded-lg shadow">
 					<h1 className="text-3xl font-bold mb-4">Your Favorites</h1>
+					{error && <p className="text-red-500">{`Error: ${error}`}</p>}
 					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 						{favorites.map((anime) => (
 							<div key={anime._id} className="bg-white p-4 rounded-lg shadow">
